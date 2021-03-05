@@ -19,14 +19,13 @@ connection.connect((err) => {
 
 class DbService {
 
-    // do not keep creating this class
+    // to not keep creating this class
     static getDbServiceInstance() {
         return instance ? instance : new DbService();
     }
 
     async getUsers() {
         const queryString = "select * from User";
-
         try {
             const response = await new Promise((resolve, reject) => {
                 connection.query(queryString, (err, results) => {
@@ -35,13 +34,27 @@ class DbService {
                 resolve(results);
             });
         });
-
             return response;
         } catch(err) {
             console.log('api err', err)
         }
+    }
 
-
+    async getMeals() {
+        // change this to Meal ya idiot
+        const queryString = "select * from meals";
+        try {
+            const response = await new Promise((resolve, reject) => {
+                connection.query(queryString, (err, results) => {
+                if(err) reject(new Error(err.message));
+                
+                resolve(results);
+            });
+        });
+            return response;
+        } catch(err) {
+            console.log('api err', err)
+        }
     }
 }
 
